@@ -45,6 +45,6 @@ maze-bfs-game/
 ## Contributions
  
 - **Moch Siril Wafa Zidane Feliano (5053251041)** (Member 1) — 33.33%: Implemented the BFS algorithm and maze generator, performed the analysis and evaluation, and deployed the game to Vercel.
-- **Alvian Faza Wafda Reonaldi (5053251029)** (Member 2) — 33.33%: Handled the game logic and module integration, and tested the game.
-- **La Ode Muhammad Ghofaruddin S (5053251030)** (Member 3) — 33.33%: Designed the user interface and rendering, wrote the final report, and wrote the README.
+- **Alvian Faza Wafda Reonaldi (5053251029)** (Member 2) — 33.33%: Handled the game logic and module integration, tested the game, and wrote the final report.
+- **La Ode Muhammad Ghofaruddin S (5053251030)** (Member 3) — 33.33%: Designed the user interface and rendering, and wrote the README.
  
