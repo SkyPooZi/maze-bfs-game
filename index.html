@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#b7dcdc" />
+  <meta name="description"
+    content="Maze Runner: a web maze game. Find your way from S to G, then compare your path with the shortest path found by the BFS algorithm." />
+  <title>Maze Runner · BFS Challenge</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <svg class="scenery" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <g opacity="0.38">
+      <polygon points="70,445.0 120,470 120,980 70,955.0" fill="#c0b4de" />
+      <polygon points="120,470 170,445.0 170,955.0 120,980" fill="#9b90c1" />
+      <polygon points="120,420 170,445.0 120,470 70,445.0" fill="#ddd5ef" />
+      <polygon points="70,445.0 120,470 170,445.0 120,350" fill="#9b90c1" opacity=".95" />
+      <polygon points="70,445.0 120,470 120,350" fill="#c0b4de" />
+    </g>
+    <g opacity="0.38">
+      <polygon points="284,353.0 330,376 330,980 284,957.0" fill="#eaaaa2" />
+      <polygon points="330,376 376,353.0 376,957.0 330,980" fill="#cc8c88" />
+      <polygon points="330,330 376,353.0 330,376 284,353.0" fill="#f5d3cd" />
+      <path d="M304.7,472.6 v-41.4 a25.3,25.3 0 0 1 50.6,0 v41.4 z" fill="#ffffff" opacity=".28" />
+    </g>
+    <g opacity="0.38">
+      <polygon points="1128,386.0 1180,412 1180,980 1128,954.0" fill="#c0b4de" />
+      <polygon points="1180,412 1232,386.0 1232,954.0 1180,980" fill="#9b90c1" />
+      <polygon points="1180,360 1232,386.0 1180,412 1128,386.0" fill="#ddd5ef" />
+      <polygon points="1128,386.0 1180,412 1232,386.0 1180,280" fill="#9b90c1" opacity=".95" />
+      <polygon points="1128,386.0 1180,412 1180,280" fill="#c0b4de" />
+    </g>
+    <g opacity="0.38">
+      <polygon points="1286,472.0 1330,494 1330,980 1286,958.0" fill="#9ec7a4" />
+      <polygon points="1330,494 1374,472.0 1374,958.0 1330,980" fill="#78a685" />
+      <polygon points="1330,450 1374,472.0 1330,494 1286,472.0" fill="#c8e2cb" />
+      <path d="M1305.8,586.4 v-39.6 a24.200000000000003,24.200000000000003 0 0 1 48.400000000000006,0 v39.6 z"
+        fill="#ffffff" opacity=".28" />
+    </g>
+    <g opacity="0.62">
+      <polygon points="152,549.0 210,578 210,980 152,951.0" fill="#ef8a73" />
+      <polygon points="210,578 268,549.0 268,951.0 210,980" fill="#d9705d" />
+      <polygon points="210,520 268,549.0 210,578 152,549.0" fill="#f8c2b3" />
+      <path d="M178.1,699.8 v-52.2 a31.900000000000002,31.900000000000002 0 0 1 63.800000000000004,0 v52.2 z"
+        fill="#ffffff" opacity=".28" />
+    </g>
+    <g opacity="0.62">
+      <polygon points="994,498.0 1050,526 1050,980 994,952.0" fill="#9ec7a4" />
+      <polygon points="1050,526 1106,498.0 1106,952.0 1050,980" fill="#78a685" />
+      <polygon points="1050,470 1106,498.0 1050,526 994,498.0" fill="#c8e2cb" />
+      <polygon points="994,498.0 1050,526 1106,498.0 1050,380" fill="#78a685" opacity=".95" />
+      <polygon points="994,498.0 1050,526 1050,380" fill="#9ec7a4" />
+    </g>
+    <g opacity="0.62">
+      <polygon points="1200,585.0 1250,610 1250,980 1200,955.0" fill="#ef8a73" />
+      <polygon points="1250,610 1300,585.0 1300,955.0 1250,980" fill="#d9705d" />
+      <polygon points="1250,560 1300,585.0 1250,610 1200,585.0" fill="#f8c2b3" />
+    </g>
+    <g opacity="0.62">
+      <polygon points="516,662.0 560,684 560,980 516,958.0" fill="#eaaaa2" />
+      <polygon points="560,684 604,662.0 604,958.0 560,980" fill="#cc8c88" />
+      <polygon points="560,640 604,662.0 560,684 516,662.0" fill="#f5d3cd" />
+      <polygon points="516,662.0 560,684 604,662.0 560,580" fill="#cc8c88" opacity=".95" />
+      <polygon points="516,662.0 560,684 560,580" fill="#eaaaa2" />
+    </g>
+    <g opacity="0.85">
+      <polygon points="-4,672.0 60,704 60,980 -4,948.0" fill="#ef8a73" />
+      <polygon points="60,704 124,672.0 124,948.0 60,980" fill="#d9705d" />
+      <polygon points="60,640 124,672.0 60,704 -4,672.0" fill="#f8c2b3" />
+      <path d="M24.799999999999997,838.4 v-57.6 a35.2,35.2 0 0 1 70.4,0 v57.6 z" fill="#ffffff" opacity=".28" />
+    </g>
+    <g opacity="0.85">
+      <polygon points="1320,670.0 1380,700 1380,980 1320,950.0" fill="#eaaaa2" />
+      <polygon points="1380,700 1440,670.0 1440,950.0 1380,980" fill="#cc8c88" />
+      <polygon points="1380,640 1440,670.0 1380,700 1320,670.0" fill="#f5d3cd" />
+      <path d="M1347.0,826.0 v-54.0 a33.0,33.0 0 0 1 66.0,0 v54.0 z" fill="#ffffff" opacity=".28" />
+    </g>
+    <g opacity="0.85">
+      <polygon points="834,743.0 880,766 880,980 834,957.0" fill="#9ec7a4" />
+      <polygon points="880,766 926,743.0 926,957.0 880,980" fill="#78a685" />
+      <polygon points="880,720 926,743.0 880,766 834,743.0" fill="#c8e2cb" />
+    </g>
+    <g opacity="0.6">
+      <polygon points="420,520 490,555.0 420,590 350,555.0" fill="#fbf0d4" />
+      <polygon points="350,555.0 420,590 420,600 350,565.0" fill="#f3e3bd" />
+      <polygon points="420,590 490,555.0 490,565.0 420,600" fill="#dcc99b" />
+    </g>
+    <g opacity="0.55">
+      <polygon points="980,600 1040,630.0 980,660 920,630.0" fill="#fbf0d4" />
+      <polygon points="920,630.0 980,660 980,670 920,640.0" fill="#f3e3bd" />
+      <polygon points="980,660 1040,630.0 1040,640.0 980,670" fill="#dcc99b" />
+    </g>
+    <g opacity="0.5">
+      <polygon points="700,760 780,800.0 700,840 620,800.0" fill="#fbf0d4" />
+      <polygon points="620,800.0 700,840 700,850 620,810.0" fill="#f3e3bd" />
+      <polygon points="700,840 780,800.0 780,810.0 700,850" fill="#dcc99b" />
+    </g>
+  </svg>
+  <div class="fog fog-a"></div>
+  <div class="fog fog-b"></div>
+  <div class="fog fog-bottom"></div>
+
+  <main class="app">
+    <header class="topbar">
+      <div class="logo">
+        <span class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="26" height="26">
+            <path d="M16 3 L29 10 L29 22 L16 29 L3 22 L3 10 Z" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linejoin="round" />
+            <path d="M16 3 V15 M16 15 L29 22 M16 15 L3 22" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linejoin="round" />
+          </svg>
+        </span>
+        <span class="logo-text">MAZE<b>RUNNER</b></span>
+      </div>
+      <div class="chip">Algorithm: <strong>BFS</strong></div>
+    </header>
+
+    <section id="screen-menu" class="screen active">
+      <div class="hero">
+        <svg class="orn" viewBox="0 0 360 28" aria-hidden="true">
+          <line x1="0" y1="14" x2="150" y2="14" />
+          <line x1="210" y1="14" x2="360" y2="14" />
+          <path d="M180 1 L193 14 L180 27 L167 14 Z" />
+          <path d="M180 8 L186 14 L180 20 L174 14 Z" />
+        </svg>
+        <h1 class="title"><span>MAZE</span><span>RUNNER</span></h1>
+        <svg class="orn" viewBox="0 0 360 28" aria-hidden="true">
+          <line x1="0" y1="14" x2="150" y2="14" />
+          <line x1="210" y1="14" x2="360" y2="14" />
+          <path d="M180 1 L193 14 L180 27 L167 14 Z" />
+          <path d="M180 8 L186 14 L180 20 L174 14 Z" />
+        </svg>
+        <p class="tagline">Think you can beat BFS?</p>
+        <p class="lead">
+          You start at <span class="tag tag-s">S</span> and have to reach
+          <span class="tag tag-g">G</span>. When you finish, your path is compared
+          with the shortest path found by the Breadth-First Search algorithm.
+        </p>
+      </div>
+
+      <div class="diff-grid">
+        <button class="diff-card" data-diff="easy">
+          <span class="diff-name">Easy</span>
+          <span class="diff-size">10 × 10</span>
+          <span class="diff-best" id="best-easy">No record yet</span>
+        </button>
+        <button class="diff-card featured" data-diff="medium">
+          <span class="diff-name">Medium</span>
+          <span class="diff-size">15 × 15</span>
+          <span class="diff-best" id="best-medium">No record yet</span>
+        </button>
+        <button class="diff-card" data-diff="hard">
+          <span class="diff-name">Hard</span>
+          <span class="diff-size">22 × 22</span>
+          <span class="diff-best" id="best-hard">No record yet</span>
+        </button>
+      </div>
+
+      <div class="howto glass">
+        <div class="howto-col">
+          <h3>Controls</h3>
+          <p><span class="key">↑</span><span class="key">←</span><span class="key">↓</span><span class="key">→</span> or
+            <span class="key">W</span><span class="key">A</span><span class="key">S</span><span class="key">D</span>
+          </p>
+          <p class="muted">On mobile, use the on-screen arrow buttons.</p>
+        </div>
+        <div class="howto-col">
+          <h3>Scoring</h3>
+          <p class="muted">Efficiency = BFS optimal steps ÷ your steps. The closer to 100%, the better.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="screen-game" class="screen">
+      <div class="layout">
+        <div class="board-wrap">
+          <div class="board-frame">
+            <canvas id="board" aria-label="Maze board"></canvas>
+          </div>
+        </div>
+
+        <aside class="panel glass">
+          <div id="panel-play">
+            <div class="panel-head">
+              <span class="badge" id="diff-badge">Medium</span>
+              <span class="muted small">Maze #<span id="maze-seed">0</span></span>
+            </div>
+
+            <div class="hud">
+              <div class="hud-item"><span class="hud-label">Steps</span><span class="hud-value" id="hud-steps">0</span>
+              </div>
+              <div class="hud-item"><span class="hud-label">Time</span><span class="hud-value" id="hud-time">0.0</span>
+              </div>
+              <div class="hud-item"><span class="hud-label">Best</span><span class="hud-value small"
+                  id="hud-best">–</span></div>
+            </div>
+
+            <ul class="legend">
+              <li><span class="tag tag-s">S</span> Start (you begin here)</li>
+              <li><span class="tag tag-g">G</span> Goal</li>
+              <li><span class="swatch swatch-wall"></span> Wall</li>
+            </ul>
+
+            <div class="dpad" aria-label="Direction controls">
+              <button class="dpad-btn up" data-dir="up" aria-label="Up">▲</button>
+              <button class="dpad-btn left" data-dir="left" aria-label="Left">◀</button>
+              <button class="dpad-btn down" data-dir="down" aria-label="Down">▼</button>
+              <button class="dpad-btn right" data-dir="right" aria-label="Right">▶</button>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn" id="btn-restart">Retry maze</button>
+              <button class="btn" id="btn-new">New maze</button>
+            </div>
+            <button class="btn ghost full" id="btn-menu">← Menu</button>
+          </div>
+
+          <div id="panel-result" hidden>
+            <p class="eyebrow">RESULT</p>
+            <h2 id="res-title">Finished!</h2>
+            <div class="stars" id="res-stars" aria-label="Stars"></div>
+            <p class="verdict" id="res-verdict"></p>
+
+            <div class="stat-grid">
+              <div class="stat"><span class="stat-label">Your steps</span><span class="stat-value player"
+                  id="res-steps">0</span></div>
+              <div class="stat"><span class="stat-label">Optimal (BFS)</span><span class="stat-value bfs"
+                  id="res-optimal">0</span></div>
+              <div class="stat"><span class="stat-label">Efficiency</span><span class="stat-value"
+                  id="res-eff">0%</span></div>
+              <div class="stat"><span class="stat-label">Time</span><span class="stat-value" id="res-time">0</span>
+              </div>
+            </div>
+            <p class="muted small" id="res-extra"></p>
+
+            <div class="toggles">
+              <label class="toggle"><input type="checkbox" id="tog-player" checked /><span
+                  class="dot dot-player"></span> Your path</label>
+              <label class="toggle"><input type="checkbox" id="tog-bfs" checked /><span class="dot dot-bfs"></span> BFS
+                path</label>
+              <label class="toggle"><input type="checkbox" id="tog-explore" checked /><span
+                  class="dot dot-explore"></span> BFS exploration</label>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn" id="btn-replay">▶ Replay BFS</button>
+              <button class="btn primary" id="btn-again">Play again</button>
+            </div>
+            <button class="btn ghost full" id="btn-menu2">← Menu</button>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <footer class="footer">Group Project · Maze game with the BFS algorithm · built with HTML, CSS, and JavaScript
+    </footer>
+  </main>
+
+  <script src="js/bfs.js"></script>
+  <script src="js/maze.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/renderer.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
